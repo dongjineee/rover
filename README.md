@@ -9,6 +9,7 @@
     $ roslaunch rover controller.launch
     $ rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/base_controller/cmd_vel
 
+![obstacle_front_wheel](https://github.com/dongjineee/rover/assets/150753899/e7e27682-6da2-4e68-a7bf-0bbe29d424c1)
 
 
     
