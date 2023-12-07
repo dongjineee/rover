@@ -1,0 +1,560 @@
+<?xml version="1.0" ?>
+
+<robot name="rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+    </material>
+
+    <material name="orange">
+        <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+    </material>
+
+    <material name="TEST_COL">
+        <color rgba="0.4196078431372549 0.48627450980392156 0.5215686274509804 0.5" />
+    </material>
+
+    <material name="TEST_COL_1">
+        <color rgba="0.4549019607843137 0.5450980392156862 0.592156862745098 0.7" />
+    </material>
+
+
+    <material name="blue">
+        <color rgba="0 0 1 0.5"/>
+    </material>
+
+    <material name="sky_blue">
+        <color rgba="0.5294 0.8078 0.9804 1"/>
+    </material>
+
+    <material name="silver">
+        <color rgba="0.75 0.75 0.75 1"/>
+    </material>
+
+    <material name="brown">
+      <color rgba="0.5451 0.2706 0.0745 1"/>
+    </material>
+
+    <xacro:include filename="$(find rover)/urdf/inertia_macro.urdf.xacro"/>
+    <xacro:include filename="$(find rover)/urdf/gazebo.urdf.xacro"/>
+    <xacro:include filename="$(find rover)/urdf/insert_transmission.urdf.xacro"/>
+
+    <link name="base_footprint"/>
+    <link name="base_link">
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0.0"/>
+            <geometry>
+                <mesh filename="package://rover/meshs/body.stl"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0.0"/>
+            <geometry>
+                <mesh filename="package://rover/meshs/body.stl"/>
+            </geometry>
+            <material name="brown"/>
+        </visual>
+
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <!-- <mass value="2"/>
+            <inertia  ixx="0.014064293037663026" ixy="0" ixz="0" iyy="0.02443428804040885" iyz="0" izz="0.031875339801789096" /> -->
+
+            <!-- <mass value="5"/>
+            <inertia  ixx="0.035160732594157564" ixy="0" ixz="0" iyy="0.061085720101022124" iyz="0" izz="0.07968834950447275" /> -->
+
+            <!-- <mass value="0.1948399"/>
+            <inertia ixx="2763.418" ixy="-14.23" ixz="-169.632" iyy="5755.855" iyz="3.698" izz="7728.734"/> -->
+            <mass value="1"/>
+            <inertia  ixx="0.028541666666666665" ixy="0" ixz="0" iyy="0.08666666666666666" iyz="0" izz="0.10854166666666665" />
+
+        </inertial>
+
+    </link>
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <origin rpy="0 0 0" xyz="0 0 0.273745"/>
+        <child link="base_link"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+
+    <link name="box_rotate">
+        <collision>
+            <origin rpy="0 0 -3.14" xyz="0 0 0.0"/>
+            <geometry>
+                <mesh filename="package://rover/meshs/box_link.stl"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin rpy="0 0 -3.14" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://rover/meshs/box_link.stl"/>
+            </geometry>
+            <material name="silver"/>
+        </visual>
+
+        <inertial>
+            <origin rpy="0 0 -3.14" xyz="0 0 0"/>
+            <mass value="0.2"/>
+            <inertia  ixx="0.0017960061392112761" ixy="0" ixz="0" iyy="5.164887871181532e-06" iyz="0" izz="0.001795990912371075" />
+        </inertial>
+    </link>
+
+    <joint name="body_joint" type="fixed">
+        <parent link="base_link"/>
+        <origin rpy="0 0 0" xyz="-0.071275 0 0.080475"/>
+        <child link="box_rotate"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <xacro:macro name="arm_rotate" params="prefix dir">
+        <link name="arm_rotate_${prefix}">
+            <collision>
+                <origin rpy="0 0.2 0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/arm.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="0 0.2 0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/arm.stl"/>
+                </geometry>
+                <material name="sky_blue"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="0 0.2 0" xyz="0 0 0"/>
+                <mass value="0.1"/>
+                <inertia  ixx="3.1492026961385533e-06" ixy="0" ixz="0" iyy="6.396050780815705e-05" iyz="0" izz="6.393627133943758e-05" />
+
+            </inertial>
+        </link>
+
+        <joint name="arm_rotate_join_${prefix}" type="fixed">
+            <parent link="box_rotate"/>
+            <origin rpy="0 0.0 0" xyz="0 ${dir*0.153} 0"/>
+            <child link="arm_rotate_${prefix}"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+    </xacro:macro>
+    <xacro:arm_rotate prefix="L" dir="1"/>
+    <xacro:arm_rotate prefix="R" dir="-1"/>
+
+    <xacro:macro name="turn_bukles" params="prefix dir origin">
+        <link name="turn_bukles_link_${prefix}">
+            <collision>
+                <origin rpy="0 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/turn_${prefix}.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="0 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/turn_${prefix}.stl"/>
+                </geometry>
+                <material name="blue"/>
+            </visual>
+            <inertial>
+                <origin rpy="0 0 0" xyz="0 0 0.0"/>
+                <mass value="0.1"/>
+                <inertia  ixx="0.00016688655832571472" ixy="0" ixz="0" iyy="0.00020448255700570341" iyz="0" izz="0.000116395044451649" />
+            </inertial>
+
+        </link>
+
+        <joint name="turn_bukles_joint_${prefix}" type="fixed">
+            <parent link="arm_rotate_${prefix}"/>
+            <origin rpy="0 0 0" xyz="0.071558 ${dir*0.017545} -0.084292"/>
+            <child link="turn_bukles_link_${prefix}"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+    </xacro:macro>
+    <xacro:turn_bukles prefix="L" dir="1" origin="0"/>
+    <xacro:turn_bukles prefix="R" dir="-1" origin ="-1.57"/>
+
+    <xacro:macro name="body_axis_link" params="prefix dir">
+        <link name="body_axis_link_${prefix}">
+            <collision>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/body_axis.stl"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/body_axis.stl"/>
+                </geometry>
+                <material name="silver"/>
+            </visual>
+            <inertial>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <mass value="0.5"/>
+                <inertia  ixx="0.0002647325735077617" ixy="0" ixz="0" iyy="0.0006894427883912008" iyz="0" izz="0.0007752858571736844" />            
+            </inertial>
+        </link>
+
+        <joint name="body_axis_joint_${prefix}" type="fixed">
+            <parent link="turn_bukles_link_${prefix}"/>
+            <origin rpy="0 0 0" xyz="0 ${dir*-0.060920} -0.001245"/>
+            <child link="body_axis_link_${prefix}"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+    </xacro:macro>
+    <xacro:body_axis_link prefix="L" dir="1"/>
+    <xacro:body_axis_link prefix="R" dir="-1"/>
+
+    <xacro:macro name="rocker_bogie_link" params="prefix dir">
+        <link name="rocker_bogie_link_${prefix}_1">
+            <collision>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/rocker_bogie_link_front.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/rocker_bogie_link_front.stl"/>
+                </geometry>
+                <material name="silver"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <mass value="0.7"/>
+                <inertia  ixx="0.024960447369043584" ixy="0" ixz="0" iyy="0.0019119417058716" iyz="0" izz="0.02334017233853099" />
+            </inertial>
+
+        </link>
+
+        <joint name="rocker_bogie_joint_${prefix}_1" type="fixed">
+            <parent link="body_axis_link_${prefix}"/>
+            <origin rpy="0 0 0" xyz="0.016004 ${dir*0.071485} 0.001353"/>
+            <child link="rocker_bogie_link_${prefix}_1"/>
+            <limit effort="10000.0" velocity="0.5" lower="-0.2" upper="0.2"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="rocker_bogie_link_${prefix}_2">
+            <collision>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/rocker_bogie_link_rear.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/rocker_bogie_link_rear.stl"/>
+                </geometry>
+                <material name="silver"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <mass value="0.3"/>
+                <inertia  ixx="0.010035818176911753" ixy="0" ixz="0" iyy="0.0006095643964233412" iyz="0" izz="0.009541453782491128" />
+                <!-- <mass value="1"/>
+                <inertia  ixx="0.03345272725637251" ixy="0" ixz="0" iyy="0.0020318813214111374" iyz="0" izz="0.03180484594163709" /> -->
+            </inertial>
+
+        </link>
+
+        <joint name="rocker_bogie_joint_${prefix}_2" type="revolute">
+            <parent link="rocker_bogie_link_${prefix}_1"/>
+            <origin rpy="0 0 0" xyz="0.111084 0 -0.07942"/>
+            <child link="rocker_bogie_link_${prefix}_2"/>
+            <limit effort="100.0" velocity="0.5" lower="-0.8" upper="0.8"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="rocker_bogie_link_${prefix}_3">
+            <collision>
+                <!-- <origin rpy="0 0 1.57" xyz="0 0 0.0"/> -->
+                <!-- <origin rpy="0 -0.168249 1.57" xyz="0 0 0.0"/> -->
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/rocker_bogie_link_middle.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/rocker_bogie_link_middle.stl"/>
+                </geometry>
+                <material name="silver"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="0 0 1.57" xyz="0 0 0.0"/>
+                <mass value="0.3"/>
+                <inertia  ixx="0.0004254403566245915" ixy="0" ixz="0" iyy="0.00023396447267724806" iyz="0" izz="0.00022027588444802242" />
+                <!-- <mass value="2"/>
+                <inertia  ixx="0.002836269044163943" ixy="0" ixz="0" iyy="0.0015597631511816538" iyz="0" izz="0.0014685058963201496" /> -->
+            </inertial>
+
+        </link>
+
+        <joint name="rocker_bogie_joint_${prefix}_3" type="revolute">
+            <parent link="rocker_bogie_link_${prefix}_1"/>
+            <origin rpy="0 0 0" xyz="0.088332 0 -0.104278"/>
+
+            <child link="rocker_bogie_link_${prefix}_3"/>
+            <limit effort="10000.0" velocity="0.5" lower="-0.2" upper="0.2"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+    </xacro:macro>
+    <xacro:rocker_bogie_link prefix="L" dir="1"/>
+    <xacro:rocker_bogie_link prefix="R" dir="-1"/>
+
+    <xacro:macro name="wheel_link" params="prefix dir origin">
+        <link name="front_wheel_link_${prefix}">
+            <collision>
+                <origin rpy="0 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel_link_left_2.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="0 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel_link_left_2.stl"/>
+                </geometry>
+                <material name="silver"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="0 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <!-- <mass value="0.3"/>
+                <inertia  ixx="0.0010744840785086418" ixy="0" ixz="0" iyy="0.0016234873662518466" iyz="0" izz="0.0006822113897574422" /> -->
+                <mass value="0.8"/>
+                <inertia  ixx="0.002865290876023045" ixy="0" ixz="0" iyy="0.004329299643338258" iyz="0" izz="0.0018192303726865125" />
+            </inertial>
+        </link>
+
+        <joint name="front_wheel_joint_${prefix}" type="fixed">
+            <parent link="rocker_bogie_link_${prefix}_2"/>
+            <origin rpy="0 0 0" xyz="0.157253 0 0.060916"/>
+            <child link="front_wheel_link_${prefix}"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="rear_wheel_link_${prefix}">
+            <collision>
+                <origin rpy="0 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel_link_left_2.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="0 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel_link_left_2.stl"/>
+                </geometry>
+                <material name="silver"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="0 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <mass value="0.8"/>
+                <inertia  ixx="0.002865290876023045" ixy="0" ixz="0" iyy="0.004329299643338258" iyz="0" izz="0.0018192303726865125" />
+
+            </inertial>
+
+        </link>
+
+        <joint name="rear_wheel_joint_${prefix}" type="fixed">
+            <parent link="rocker_bogie_link_${prefix}_1"/>
+            <origin rpy="0 0 0" xyz="-0.311763 0 -0.030379"/>
+            <child link="rear_wheel_link_${prefix}"/>
+
+            <axis xyz="0 1 0"/>
+        </joint>
+
+        <link name="middle_wheel_link_${prefix}">
+            <collision>
+                <origin rpy="${origin} 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel_middle_left.stl"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin rpy="${origin} 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel_middle_left.stl"/>
+                </geometry>
+                <material name="silver"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="${origin} 0 ${dir*-1.57}" xyz="0 0 0.0"/>
+                <mass value="0.3"/>
+                <inertia  ixx="0.00023039825512741194" ixy="0" ixz="0" iyy="0.0004706118439697759" iyz="0" izz="0.0004706117933937492" />
+            </inertial>
+
+        </link>
+
+        <joint name="middle_wheel_joint_${prefix}" type="fixed">
+            <parent link="rocker_bogie_link_${prefix}_3"/>
+            <origin rpy="0 0 0" xyz="-0.087554 ${dir*-0.023889} -0.090266"/>
+            <child link="middle_wheel_link_${prefix}"/>
+
+            <axis xyz="0 1 0"/>
+        </joint>  
+
+    </xacro:macro>
+
+    <xacro:wheel_link prefix="L" dir="1" origin="1.57"/>
+    <xacro:wheel_link prefix="R" dir="-1" origin="-3.14"/>
+
+
+
+    <xacro:macro name="wheel" params="prefix dir origin prefix_1">
+        <link name="front_wheel_link_${prefix}">
+            <collision>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel.stl"/>
+                </geometry>
+                <surface>
+                    <friction>
+                        <ode>
+                        <mu>0.7</mu> <!-- 정적 마찰 계수 -->
+                            <mu2>0.3</mu2> <!-- 동적 마찰 계수 -->
+                        </ode>
+                    </friction>
+                </surface>
+            </collision>
+
+            <visual>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel.stl"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <!-- <mass value="0.3"/>
+                <inertia  ixx="0.000923306143393826" ixy="0" ixz="0" iyy="0.0009236146527430932" iyz="0" izz="0.001337208204924467" /> -->
+                <mass value="0.8"/>
+                <inertia  ixx="0.0024621497157168697" ixy="0" ixz="0" iyy="0.002462972407314915" iyz="0" izz="0.0035658885464652456" />
+            </inertial>
+
+        </link>
+
+        <joint name="front_wheel_joint_${prefix}" type="continuous">
+            <parent link="front_wheel_link_${prefix_1}"/>
+            <origin rpy="0 0 0" xyz="0.006231 ${dir*0.019544} -0.169991"/>
+            <child link="front_wheel_link_${prefix}"/>
+            <axis xyz="0 1 0"/>
+            <velocity>5.0</velocity> 
+        </joint>
+
+        <link name="middle_wheel_link_${prefix}">
+            <collision>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel.stl"/>
+                </geometry>
+                <surface>
+                    <friction>
+                        <ode>
+                        <mu>0.7</mu> <!-- 정적 마찰 계수 -->
+                            <mu2>0.3</mu2> <!-- 동적 마찰 계수 -->
+                        </ode>
+                    </friction>
+                </surface>        
+            </collision>
+
+            <visual>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel.stl"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <mass value="0.8"/>
+                <inertia  ixx="0.0024621497157168697" ixy="0" ixz="0" iyy="0.002462972407314915" iyz="0" izz="0.0035658885464652456" />
+            </inertial>
+        </link>
+
+        <joint name="middle_wheel_joint_${prefix}" type="continuous">
+            <parent link="middle_wheel_link_${prefix_1}"/>
+            <origin rpy="0 0 0" xyz="0.006691 ${dir*0.100382} 0.005425"/>
+            <child link="middle_wheel_link_${prefix}"/>
+            <axis xyz="0 1 0"/>
+            <velocity>5.0</velocity> 
+        </joint>
+
+        <link name="rear_wheel_link_${prefix}">
+            <collision>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel.stl"/>
+                </geometry>
+                <surface>
+                    <friction>
+                        <ode>
+                        <mu>0.7</mu> <!-- 정적 마찰 계수 -->
+                            <mu2>0.3</mu2> <!-- 동적 마찰 계수 -->
+                        </ode>
+                    </friction>
+                </surface>        
+            </collision>
+
+            <visual>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <geometry>
+                    <mesh filename="package://rover/meshs/wheel.stl"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <inertial>
+                <origin rpy="-1.57 0 ${origin}" xyz="0 0 0.0"/>
+                <mass value="0.8"/>
+                <inertia  ixx="0.0024621497157168697" ixy="0" ixz="0" iyy="0.002462972407314915" iyz="0" izz="0.0035658885464652456" />
+            </inertial>
+        </link>
+
+        <joint name="rear_wheel_joint_${prefix}" type="continuous">
+            <parent link="rear_wheel_link_${prefix_1}"/>
+            <origin rpy="0 0 0" xyz="-0.000203 ${dir*0.008131} -0.160678"/>
+            <child link="rear_wheel_link_${prefix}"/>
+            <axis xyz="0 1 0"/>
+            <velocity>5.0</velocity>        
+        </joint>
+
+    </xacro:macro>
+    <xacro:wheel prefix="left" dir="1" origin="0" prefix_1="L"/>
+    <xacro:wheel prefix="right" dir="-1" origin="3.14" prefix_1="R"/>
+
+    <xacro:insert_velocity_transmission name="rear_wheel_joint_right"/>
+    <xacro:insert_velocity_transmission name="rear_wheel_joint_left"/>
+    <xacro:insert_velocity_transmission name="middle_wheel_joint_right"/>
+    <xacro:insert_velocity_transmission name="middle_wheel_joint_left"/>
+    <xacro:insert_velocity_transmission name="front_wheel_joint_right"/>
+    <xacro:insert_velocity_transmission name="front_wheel_joint_left"/>
+</robot>
