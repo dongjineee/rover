@@ -8,7 +8,7 @@
     $ roslaunch rover bringup.launch
     $ roslaunch rover controller.launch
     $ rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/base_controller/cmd_vel
-<img src="https://github.com/dongjineee/rover/assets/150753899/e7e27682-6da2-4e68-a7bf-0bbe29d424c1" width="50" height="50"/>
+<img src="https://github.com/dongjineee/rover/assets/150753899/e7e27682-6da2-4e68-a7bf-0bbe29d424c1" width="200" height="200"/>
 
 ![obstacle_front_wheel](https://github.com/dongjineee/rover/assets/150753899/e7e27682-6da2-4e68-a7bf-0bbe29d424c1){: width="100" height="100"}
 
