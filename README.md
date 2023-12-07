@@ -8,6 +8,7 @@ https://github.com/dongjineee/rover/assets/150753899/5bd573f1-2408-4dc1-bdda-831
     $ roslaunch rover bringup.launch
     $ roslaunch rover controller.launch
     $ rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/base_controller/cmd_vel
+<p align = "center">
 <img src="https://github.com/dongjineee/rover/assets/150753899/e7e27682-6da2-4e68-a7bf-0bbe29d424c1" width="384" height="216"/>
 
 
@@ -24,7 +25,7 @@ https://github.com/dongjineee/rover/assets/150753899/5bd573f1-2408-4dc1-bdda-831
 
 
 뒷 바퀴 장애물 넘기
-
+</p>
     
 # rover simualtion rviz 
     $ roslaunch rover upload.launch
