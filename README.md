@@ -2,7 +2,7 @@
 1. rover simualation 초기 단계
 2. rover urdf, gazebo run 포함
 
-https://github.com/dongjineee/rover/assets/150753899/5bd573f1-2408-4dc1-bdda-831dbc7f8009
+
 
 # rover simualtion gazebo 
     $ roslaunch rover bringup.launch
