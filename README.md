@@ -1,1 +1,20 @@
-![rover_7](https://github.com/dongjineee/rover/assets/150753899/d95b063d-e5b5-4cd0-8766-cd98aac8f9aa)
+# rover vr 01
+1. rover simualation 초기 단계
+2. rover urdf, gazebo run 포함
+
+
+
+# rover simualtion gazebo 
+    $ roslaunch rover bringup.launch
+    $ roslaunch rover controller.launch
+    $ rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/base_controller/cmd_vel
+
+
+
+    
+# rover simualtion rviz 
+    $ roslaunch rover upload.launch
+    $ rosrun rviz rviz
+
+
+
