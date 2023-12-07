@@ -29,6 +29,15 @@ https://github.com/dongjineee/rover/assets/150753899/5bd573f1-2408-4dc1-bdda-831
 # rover simualtion rviz 
     $ roslaunch rover upload.launch
     $ rosrun rviz rviz
+<img src="https://github.com/dongjineee/rover/assets/150753899/cb6a03f4-10ba-469b-bd1f-f62b3e90e64b" width="384" height="216"/>
+
+URDF Preview
+
+
+<img src="https://github.com/dongjineee/rover/assets/150753899/7c316ba2-5ce0-4bf9-8488-8f46a37f432d" width="384" height="216"/>
+
+
+RVIZ
 
 
 
