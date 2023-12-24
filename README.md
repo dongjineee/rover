@@ -47,7 +47,13 @@ RVIZ
 
 # rover simualtion in moon
     $ roslaunch rover moon_world.launch
+<p align = "center">
+<img src="https://github.com/dongjineee/rover/assets/150753899/85094c72-ccf6-4dcb-a684-941eae689d8e" width="384" height="216"/>
+</p>
 
+<p align = "center">
+<img src="https://github.com/dongjineee/rover/assets/150753899/348baaa9-4454-4091-8ec3-6d428f1564fb" width="384" height="216"/>
+</p>
 
 
 
