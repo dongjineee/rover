@@ -44,3 +44,9 @@ RVIZ
 </p>
 
 
+# rover simualtion in moon
+    $ roslaunch rover moon_world.launch
+
+
+
+
