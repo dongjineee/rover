@@ -23,12 +23,13 @@
 
 </p>
 <p align = "center">
-<img src="https://github.com/dongjineee/rover/assets/150753899/49c7ff94-2350-4871-8276-b43929eb93c5" width="384" height="216"/>
+<img src="https://github.com/dongjineee/rover/assets/150753899/af620946-8386-40f8-b1a9-dfe3bc1baaf5" width="700" height="400"/>
 </p>
 <p align = "center">
 
 </p>
-    
+
+
 # rover simualtion rviz 
     $ roslaunch rover upload.launch
     $ rosrun rviz rviz
