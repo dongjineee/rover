@@ -15,9 +15,10 @@
 
 </p>
 <p align = "center">
-<img src="https://github.com/dongjineee/rover/assets/150753899/d980061f-2831-4149-9b7c-ff08c2643fdc" width="700" height="400"/>
+<img src="https://github.com/dongjineee/rover/assets/150753899/af620946-8386-40f8-b1a9-dfe3bc1baaf5" width="700" height="400"/>
 </p>
 <p align = "center">
+
 
 </p>
 <p align = "center">
