@@ -10,6 +10,7 @@
     $ roslaunch rover rover_teleop.launch
 <p align = "center">
 <img src="https://github.com/dongjineee/rover/assets/150753899/79ce4e89-d6a9-476b-aecb-70ec3c2e9776" width="700" height="400"/>
+    only angular.z
 </p>
 
 <p align = "center">
