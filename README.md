@@ -15,7 +15,7 @@
 
 </p>
 <p align = "center">
-<img src="https://github.com/dongjineee/rover/assets/150753899/5bd573f1-2408-4dc1-bdda-831dbc7f8009" width="384" height="216"/>
+<img src="https://github.com/dongjineee/rover/assets/150753899/d980061f-2831-4149-9b7c-ff08c2643fdc" width="700" height="400"/>
 </p>
 <p align = "center">
 
