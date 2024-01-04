@@ -9,7 +9,7 @@
     $ roslaunch rover controller.launch
     $ roslaunch rover rover_teleop.launch
 <p align = "center">
-<img src="https://github.com/dongjineee/rover/assets/150753899/d980061f-2831-4149-9b7c-ff08c2643fdc" width="384" height="216"/>
+<img src="https://github.com/dongjineee/rover/assets/150753899/d980061f-2831-4149-9b7c-ff08c2643fdc" width="512" height="216"/>
 </p>
 <p align = "center">
 
