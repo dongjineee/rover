@@ -36,8 +36,7 @@ linear.x, angular.z
 
 
 # rover simualtion rviz 
-    $ roslaunch rover upload.launch
-    $ rosrun rviz rviz
+    $ roslaunch rover rover.launch
 <p align = "center">
 <img src="https://github.com/dongjineee/rover/assets/150753899/cb6a03f4-10ba-469b-bd1f-f62b3e90e64b" width="384" height="216"/>
 </p>
