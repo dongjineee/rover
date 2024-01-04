@@ -7,9 +7,9 @@
 # rover simualtion gazebo 
     $ roslaunch rover bringup.launch
     $ roslaunch rover controller.launch
-    $ rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/base_controller/cmd_vel
+    $ roslaunch rover rover_teleop.launch
 <p align = "center">
-<img src="https://github.com/dongjineee/rover/assets/150753899/e7e27682-6da2-4e68-a7bf-0bbe29d424c1" width="384" height="216"/>
+<img src="https://github.com/dongjineee/rover/assets/150753899/d980061f-2831-4149-9b7c-ff08c2643fdc" width="384" height="216"/>
 </p>
 <p align = "center">
 
