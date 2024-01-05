@@ -7,7 +7,9 @@
     $ roslaunch rover upload.launch
     $ rosrun rviz rviz
 
-    $ roslaunch rover rover_teleop.launch
+    $ roslaunch rover rover_teleop_keyboard.launch #키보드 입력
+    $ roslaunch rover rover_teleop_xbox.launch #xbox 입력
+    
 <p align = "center">
 <img src="https://github.com/dongjineee/rover/assets/150753899/79ce4e89-d6a9-476b-aecb-70ec3c2e9776" width="700" height="400"/>
 </p>
