@@ -1,13 +1,14 @@
-# rover vr 01
-1. rover simualation 초기 단계
-2. rover urdf, gazebo run 포함
-3. rover moon 환경 포함
+
+# rover vr 02
+1. rover simualation 중간 단계 ( 플랫폼 배송전이므로 영상에서 보이는 것을 참고하여 만듦 ㅎ)
+2. rover urdf, gazebo, moonworld, rover_teleop 포함
+
 
 
 
 # rover simualtion gazebo 
     $ roslaunch rover bringup.launch
-    $ roslaunch rover controller.launch
+    $ roslaunch rover controller.launc
     $ rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/base_controller/cmd_vel
 <p align = "center">
 <img src="https://github.com/dongjineee/rover/assets/150753899/e7e27682-6da2-4e68-a7bf-0bbe29d424c1" width="384" height="216"/>
@@ -31,6 +32,37 @@
 # rover simualtion rviz 
     $ roslaunch rover upload.launch
     $ rosrun rviz rviz
+=======
+    $ roslaunch rover rover_teleop.launch
+<p align = "center">
+<img src="https://github.com/dongjineee/rover/assets/150753899/79ce4e89-d6a9-476b-aecb-70ec3c2e9776" width="700" height="400"/>
+</p>
+
+<p align = "center">
+only angular.z
+</p>
+
+</p>
+<p align = "center">
+<img src="https://github.com/dongjineee/rover/assets/150753899/af620946-8386-40f8-b1a9-dfe3bc1baaf5" width="700" height="400"/>
+</p>
+<p align = "center">
+only linear.x
+</p>
+
+
+</p>
+<p align = "center">
+<img src="https://github.com/dongjineee/rover/assets/150753899/3a6c15ea-95ed-4dda-b19f-91de0a7809a9" width="700" height="400"/>
+</p>
+<p align = "center">
+linear.x, angular.z
+</p>
+
+
+
+# rover simualtion rviz 
+    $ roslaunch rover rover.launch
 <p align = "center">
 <img src="https://github.com/dongjineee/rover/assets/150753899/cb6a03f4-10ba-469b-bd1f-f62b3e90e64b" width="384" height="216"/>
 </p>
