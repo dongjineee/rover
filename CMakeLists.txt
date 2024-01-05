@@ -10,21 +10,23 @@ find_package(catkin REQUIRED COMPONENTS
   urdf 
   std_msgs
   geometry_msgs
+  message_generation
+  sensor_msgs
 )
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
+ add_message_files(
+   FILES
+   xbox.msg
 #   Message2.msg
-# )
+ )
 
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   std_msgs  # Or other packages containing msgs
+ )
 
 catkin_package(
 #  INCLUDE_DIRS include
@@ -42,3 +44,9 @@ include_directories(
 
 add_executable(motor_controller src/motor_controller.cpp)
 target_link_libraries(motor_controller ${catkin_LIBRARIES})
+
+add_executable(rover_xbox src/rover_xbox.cpp)
+target_link_libraries(rover_xbox ${catkin_LIBRARIES})
+
+add_executable(xbox_joy src/xbox_joy.cpp)
+target_link_libraries(xbox_joy ${catkin_LIBRARIES})
