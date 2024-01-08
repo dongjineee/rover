@@ -5,7 +5,8 @@
 
 # rover simualtion rviz 
     $ roslaunch rover bringup.launch
-
+    $ roslaunch rover controller.launch
+    
     $ roslaunch rover rover_teleop_keyboard.launch #키보드 입력
     $ roslaunch rover rover_teleop_xbox.launch #xbox 입력
     
